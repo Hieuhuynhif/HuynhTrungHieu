@@ -76,7 +76,7 @@ const WalletPage: React.FC<Props> = (props: Props) => {
       });
   }, [balances, prices]);
 
-  // don 't need this case to reduce computing ,then improve performance
+  // don 't need in this case to reduce computing ,then improve performance
   // const formattedBalances = sortedBalances.map((balance: WalletBalance) => {
   //   return {
   //     ...balance,
