@@ -2,6 +2,6 @@ type Props = {
   title: string;
 };
 
-export default function index({ title }: Props) {
+export default function Fancyform({ title }: Props) {
   return <div>Fancyform:{title}</div>;
 }
