@@ -9,5 +9,5 @@ export default function Fancyform({ title }: Props) {
   const currencies = currency
   console.log(currencies)
 
-  return <div>Fancyform:{title}</div>;
+  return <div>Fancy form:{title}</div>;
 }
