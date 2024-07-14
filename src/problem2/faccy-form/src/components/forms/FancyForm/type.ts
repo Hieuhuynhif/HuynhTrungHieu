@@ -7,6 +7,6 @@ export interface Currency {
 export interface FormValues {
   currencyInput: Currency | null;
   currencyOutput: Currency | null;
-  input: number;
-  output: number;
+  input: number | null;
+  output: number | null;
 }
