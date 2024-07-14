@@ -1,6 +1,5 @@
 import { Autocomplete, Box, TextField } from "@mui/material";
 import { Control, Controller } from "react-hook-form";
-import srcDefault from "../../../assets/react.svg";
 import { Currency, FormValues } from "../../forms/FancyForm/type";
 
 type Props = {
@@ -25,41 +24,52 @@ export default function CurrencyController({
       rules={{
         required: "Select a Currency",
       }}
-      render={({ field: { value, onChange }, fieldState: { error } }) => {
-        const svgURL = `https://raw.githubusercontent.com/Switcheo/token-icons/main/tokens/${
-          (value as Currency)?.currency
-        }.svg`;
-
-        return (
-          <Autocomplete
-            fullWidth
-            value={value as Currency}
-            isOptionEqualToValue={(option, value) =>
-              option?.currency === value?.currency &&
-              option.price === option.price
-            }
-            onChange={(_event, value) => {
-              handleChange();
-              onChange(value);
-            }}
-            getOptionLabel={(opt) => opt.currency}
-            options={currencies}
-            renderOption={(props, opt) => (
-              <Box {...props} key={opt.currency}>
-                {opt.currency} - {opt.price}
+      render={({ field: { value, onChange }, fieldState: { error } }) => (
+        <Autocomplete
+          fullWidth
+          value={value as Currency}
+          isOptionEqualToValue={(option, value) =>
+            option?.currency === value?.currency && option.price === value.price
+          }
+          onChange={(_event, value) => {
+            handleChange();
+            onChange(value);
+          }}
+          getOptionLabel={(opt) => opt.currency}
+          options={currencies}
+          renderOption={(props, opt) => {
+            const { key, ...optionProps } = props;
+            return (
+              <Box
+                key={key}
+                component="li"
+                sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                {...optionProps}
+              >
+                <img
+                  width="20"
+                  src={`/tokens/${(opt as Currency).currency}.svg`}
+                />
+                {opt.currency}
               </Box>
-            )}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label={<img src={value ? svgURL : srcDefault} />}
-                error={!!error}
-                helperText={error?.message ?? " "}
-              />
-            )}
-          />
-        );
-      }}
+            );
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label={
+                value ? (
+                  <img src={`/tokens/${(value as Currency).currency}.svg`} />
+                ) : (
+                  label
+                )
+              }
+              error={!!error}
+              helperText={error?.message ?? " "}
+            />
+          )}
+        />
+      )}
     />
   );
 }
